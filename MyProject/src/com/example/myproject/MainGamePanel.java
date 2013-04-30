@@ -21,6 +21,7 @@ public MainGamePanel(Context context) {
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
   
+		droid = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.droid_1), 50, 50);
 		thread = new MainThread(getHolder(), this);
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
@@ -90,5 +91,24 @@ public MainGamePanel(Context context) {
 	   droid.draw(canvas);	 
  }
  
+ 	public void update(){
+ 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
+ 				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= getWidth()){
+ 			droid.getSpeed().toggleYDirection();
+ 		}
+ 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_LEFT
+ 				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= 0){
+ 			droid.getSpeed().toggleYDirection();
+ 		}
+ 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_DOWN
+ 				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= getHeight()){
+ 			droid.getSpeed().toggleYDirection();
+ 		}
+ 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_UP
+ 				&& droid.getX() + droid.getBitmap().getWidth() / 2 <= 0){
+ 			droid.getSpeed().toggleYDirection();
+ 		}
+ 		droid.update();
+ 	}
 
 }

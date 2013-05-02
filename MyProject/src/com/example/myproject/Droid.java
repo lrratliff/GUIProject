@@ -9,6 +9,7 @@ public class Droid {
 	private int x;
 	private int y;
 	private boolean touched;
+	Speed speed;
 	
 	public Droid(Bitmap bitmap, int x , int y){
 	
@@ -58,6 +59,17 @@ public class Droid {
 				setTouched(false);
 			}
 			
+		}
+		public void update(){
+			if(!touched){
+				x += (speed.getXv() * speed.getXDirection());
+				y += (speed.getYv() * speed.getYDirection());
+			}
+		}
+
+		public Speed getSpeed() {
+			// TODO Auto-generated method stub
+			return speed;
 		}
 	}
 

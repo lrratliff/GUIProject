@@ -92,23 +92,28 @@ public MainGamePanel(Context context) {
  }
  
  	public void update(){
- 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
+ 		if(droid.getSpeed().getXDirection() == Speed.DIRECTION_RIGHT
  				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= getWidth()){
- 			droid.getSpeed().toggleYDirection();
+ 			droid.getSpeed().toggleXDirection();
  		}
- 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_LEFT
+ 		if(droid.getSpeed().getXDirection() == Speed.DIRECTION_LEFT
  				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= 0){
+ 			droid.getSpeed().toggleXDirection();
+ 		}
+ 		if(droid.getSpeed().getYDirection() == Speed.DIRECTION_DOWN
+ 				&& droid.getY() + droid.getBitmap().getHeight() / 2 >= getHeight()){
  			droid.getSpeed().toggleYDirection();
  		}
- 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_DOWN
- 				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= getHeight()){
- 			droid.getSpeed().toggleYDirection();
- 		}
- 		if(droid.getSpeed().getxDirection() == Speed.DIRECTION_UP
- 				&& droid.getX() + droid.getBitmap().getWidth() / 2 <= 0){
+ 		if(droid.getSpeed().getYDirection() == Speed.DIRECTION_UP
+ 				&& droid.getY() - droid.getBitmap().getHeight() / 2 <= 0){
  			droid.getSpeed().toggleYDirection();
  		}
  		droid.update();
  	}
+
+	public void render(Canvas canvas) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

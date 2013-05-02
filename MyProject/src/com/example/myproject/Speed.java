@@ -34,10 +34,10 @@ public class Speed {
 	public void setYv(float yv){
 		this.yv = yv;
 	}
-	public int getXDirection(){
+	public int getxDirection(){
 		return xDirection;
 	}
-	public int getYDirection(){
+	public int getyDirection(){
 		return yDirection;
 	}
 	public void setxDirection(int xDirection){

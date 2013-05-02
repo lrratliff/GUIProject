@@ -16,6 +16,7 @@ public class Droid {
 	this.bitmap = bitmap;
 	this.x = x;
 	this.y = y;
+	speed = new Speed();
 	}
 	
 	public Bitmap getBitmap(){
@@ -62,8 +63,8 @@ public class Droid {
 		}
 		public void update(){
 			if(!touched){
-				x += (speed.getXv() * speed.getXDirection());
-				y += (speed.getYv() * speed.getYDirection());
+				x +=(int)(speed.getXv() * speed.getxDirection());
+				y += (speed.getYv() * speed.getyDirection());
 			}
 		}
 

@@ -85,35 +85,45 @@ public MainGamePanel(Context context) {
   return super.onTouchEvent(event);
  }
 
+ 
+ protected void render(Canvas canvas) {
+	 canvas.drawColor(Color.BLACK);
+	   droid.draw(canvas);	 
+ }
  @Override
  protected void onDraw(Canvas canvas) {
 	 canvas.drawColor(Color.BLACK);
 	   droid.draw(canvas);	 
  }
  
- 	public void update(){
- 		if(droid.getSpeed().getXDirection() == Speed.DIRECTION_RIGHT
- 				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= getWidth()){
- 			droid.getSpeed().toggleXDirection();
- 		}
- 		if(droid.getSpeed().getXDirection() == Speed.DIRECTION_LEFT
- 				&& droid.getX() + droid.getBitmap().getWidth() / 2 >= 0){
- 			droid.getSpeed().toggleXDirection();
- 		}
- 		if(droid.getSpeed().getYDirection() == Speed.DIRECTION_DOWN
- 				&& droid.getY() + droid.getBitmap().getHeight() / 2 >= getHeight()){
- 			droid.getSpeed().toggleYDirection();
- 		}
- 		if(droid.getSpeed().getYDirection() == Speed.DIRECTION_UP
- 				&& droid.getY() - droid.getBitmap().getHeight() / 2 <= 0){
- 			droid.getSpeed().toggleYDirection();
- 		}
- 		droid.update();
- 	}
+ public void update() {
+	     // check collision with right wall if heading right
+	     if (droid.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
+	             && droid.getX() + droid.getBitmap().getWidth() / 2 >= getWidth()) {
+	         droid.getSpeed().toggleXDirection();
+	     }
+	     // check collision with left wall if heading left
+	     if (droid.getSpeed().getxDirection() == Speed.DIRECTION_LEFT
+	             && droid.getX() - droid.getBitmap().getWidth() / 2 <= 0) {
 
-	public void render(Canvas canvas) {
-		// TODO Auto-generated method stub
-		
-	}
+	         droid.getSpeed().toggleXDirection();
+	     }
+	     // check collision with bottom wall if heading down
+	     if (droid.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
+	             && droid.getY() + droid.getBitmap().getHeight() / 2 >= getHeight()) {
+	         droid.getSpeed().toggleYDirection();
+	     }
+	     // check collision with top wall if heading up
+	     if (droid.getSpeed().getyDirection() == Speed.DIRECTION_UP
+	             && droid.getY() - droid.getBitmap().getHeight() / 2 <= 0) {
+	         droid.getSpeed().toggleYDirection();
+	     }
+
+	     // Update the lone droid
+	     droid.update();
+	 }
+
+
+
 
 }

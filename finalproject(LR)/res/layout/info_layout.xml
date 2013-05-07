@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/background"
+        android:src="@drawable/wallpaper2"
+        android:scaleType="fitXY"
+        />
+    <TextView 
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/instructions"
+        android:layout_centerInParent="true"
+        android:text = "Catch the asteroids before they hit earth.
+        Just touch the basket in order to move it."
+        />
+    <Button 
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/instructions"
+        android:id="@+id/back"
+        android:text="Back"/>
+    
+    
+
+</RelativeLayout>

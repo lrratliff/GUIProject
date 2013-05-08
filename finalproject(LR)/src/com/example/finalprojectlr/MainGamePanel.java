@@ -1,6 +1,8 @@
 package com.example.finalprojectlr;
 
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,19 +19,32 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
 	
 	private MainThread thread;
 	private Droid droid;
-//	private Paddle paddle;
+	private Droid droid2;
+	private Paddle paddle;
 	private static final String TAG = MainThread.class.getSimpleName();
-	
-
+	Random generator = new Random();
+	private int randXGen = generator.nextInt(800) + 1;
+	private int randYGen = generator.nextInt(600) + 1;
+	private int randNum = generator.nextInt(8) + 1;
+	private Droid[] droidArray;
 	
 public MainGamePanel(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
   
-		//paddle = new Paddle(BitmapFactory.decodeResource(getResources(), R.drawable.paddle), 10, 10);
-		droid = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), 10, 10);
-		 
+		paddle = new Paddle(BitmapFactory.decodeResource(getResources(), R.drawable.paddle), 400, 1000);
+		droid = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
+		randXGen = generator.nextInt(800) + 1;
+		randYGen = generator.nextInt(600) + 1;
+		droid2 = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
+		//droidArray = new Droid[randNum];
+
+//        for (int x = 0; x < randNum; x++) {
+//        	 randYGen = generator.nextInt(600) + 1;
+//        	 randNum = generator.nextInt(8) + 1;
+//            droidArray[x] = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
+//        }
 		thread = new MainThread(getHolder(), this);
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
@@ -63,47 +78,55 @@ public MainGamePanel(Context context) {
 	   Log.d(TAG, "Thread was shut down cleanly");
  }
 
-//// @Override
-//// public boolean onTouchEvent(MotionEvent event) {
-////	 if(event.getAction() == MotionEvent.ACTION_DOWN){
-////		 paddle.handleActionDown((int)event.getX(), (int)event.getY());
-////		 if(event.getY() > getHeight() - 50) {
-////			 thread.setRunning(false);
-////			 ((Activity)getContext()).finish();
-////		 }
-////		 else{
-////			 Log.d(TAG, "Coords: x=" + event.getX() + ",y=" +
-////					 event.getY());
-////		 }
-////	 }
-////	 if (event.getAction() == MotionEvent.ACTION_MOVE) {
-////		 if (paddle.isTouched()) {
-////			 paddle.setX((int)event.getX());
-////			 paddle.setY((int)event.getY());
-////		 }
-////	 }
-////	 if (event.getAction() == MotionEvent.ACTION_UP) {
-////		 if (paddle.isTouched()) {
-////			 paddle.setTouched(false);
-////		 }
-////	 }
-//	 
-//
-//
-//  return super.onTouchEvent(event);
-// }
+ @Override
+ public boolean onTouchEvent(MotionEvent event) {
+	 if(event.getAction() == MotionEvent.ACTION_DOWN){
+		 paddle.handleActionDown((int)event.getX(), (int)event.getY());
+		 if(event.getY() > getHeight() - 50) {
+			 thread.setRunning(false);
+			 ((Activity)getContext()).finish();
+		 }
+		 else{
+			 Log.d(TAG, "Coords: x=" + event.getX() + ",y=" +
+					 event.getY());
+		 }
+	 }
+	 if (event.getAction() == MotionEvent.ACTION_MOVE) {
+		 if (paddle.isTouched()) {
+			 paddle.setX((int)event.getX());
+			 paddle.setY((int)event.getY());
+		 }
+	 }
+	 if (event.getAction() == MotionEvent.ACTION_UP) {
+		 if (paddle.isTouched()) {
+			 paddle.setTouched(false);
+		 }
+	 }
+	 
+
+
+  return super.onTouchEvent(event);
+ }
 
  
  protected void render(Canvas canvas) {
 	 canvas.drawColor(Color.BLACK);
+//	 for(int x = 0; x < randNum; x++){
+//	   droidArray[x].draw(canvas);
+//	 }
+	   paddle.draw(canvas);
 	   droid.draw(canvas);
-	  // paddle.draw(canvas);
+	   droid2.draw(canvas);
  }
  @Override
  protected void onDraw(Canvas canvas) {
 	 canvas.drawColor(Color.BLACK);
-	   droid.draw(canvas);
-	  // paddle.draw(canvas);
+//	 for(int x = 0; x < randNum; x++){
+//	   droidArray[x].draw(canvas);
+//	 }
+	 	droid.draw(canvas);
+	   paddle.draw(canvas);
+	   droid2.draw(canvas);
  }
  
  public void update() {

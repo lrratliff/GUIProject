@@ -3,6 +3,7 @@ package com.example.finalprojectlr;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -40,6 +41,12 @@ public class GameActivity extends Activity{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
+	@Override
+    public void onBackPressed() {
+		Intent intent = new Intent(GameActivity.this, MainActivity.class);
+		startActivity(intent);
+    }
 
 }
 

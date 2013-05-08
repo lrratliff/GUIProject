@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-;
+
 
 public class MainActivity extends Activity {
 	
@@ -35,7 +35,10 @@ public class MainActivity extends Activity {
 	};
 	View.OnClickListener exitMethod = new View.OnClickListener(){
 		public void onClick(View v){
-			
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 		}
 		};
 	
@@ -57,5 +60,9 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
+    public void onBackPressed() {
+            MainActivity.this.finish();
+    }
 
 }

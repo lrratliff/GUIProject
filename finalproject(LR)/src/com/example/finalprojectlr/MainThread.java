@@ -53,7 +53,7 @@ public class MainThread extends Thread {
 			 
 			 if(sleepTime > 0){
 				 try{
-					 Thread.sleep(sleepTime);
+					 Thread.sleep(15);
 				 }
 				 catch(InterruptedException e ){}
 			 }

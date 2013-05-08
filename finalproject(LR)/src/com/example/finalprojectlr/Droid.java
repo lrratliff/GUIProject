@@ -18,6 +18,12 @@ public class Droid {
 	this.y = y;
 	speed = new Speed();
 	}
+	public Droid(Droid d){
+		this.bitmap = d.bitmap;
+		this.x = d.x;
+		this.y = d.y;
+		speed = new Speed();
+	}
 	
 	public Bitmap getBitmap(){
 		return bitmap;

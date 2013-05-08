@@ -44,7 +44,9 @@ public class Droid {
 	public void setY(int y){
 		this.y = y;
 	}
-	
+	public void destroy(){
+		this.bitmap.recycle();
+	}
 	public void draw(Canvas canvas){
 		canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
 	}

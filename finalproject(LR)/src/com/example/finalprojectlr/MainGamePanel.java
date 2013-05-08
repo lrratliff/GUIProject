@@ -33,18 +33,11 @@ public MainGamePanel(Context context) {
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
   
+	//	droidArray = new Droid[randNum];
 		paddle = new Paddle(BitmapFactory.decodeResource(getResources(), R.drawable.paddle), 400, 1000);
-		droid = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
-		randXGen = generator.nextInt(800) + 1;
-		randYGen = generator.nextInt(600) + 1;
-		droid2 = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
-		//droidArray = new Droid[randNum];
 
-//        for (int x = 0; x < randNum; x++) {
-//        	 randYGen = generator.nextInt(600) + 1;
-//        	 randNum = generator.nextInt(8) + 1;
-//            droidArray[x] = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
-//        }
+		droid = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
+		
 		thread = new MainThread(getHolder(), this);
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
@@ -80,7 +73,8 @@ public MainGamePanel(Context context) {
 
  @Override
  public boolean onTouchEvent(MotionEvent event) {
-	 if(event.getAction() == MotionEvent.ACTION_DOWN){
+	 switch (event.getAction()){
+	 case(MotionEvent.ACTION_DOWN):
 		 paddle.handleActionDown((int)event.getX(), (int)event.getY());
 		 if(event.getY() > getHeight() - 50) {
 			 thread.setRunning(false);
@@ -90,14 +84,14 @@ public MainGamePanel(Context context) {
 			 Log.d(TAG, "Coords: x=" + event.getX() + ",y=" +
 					 event.getY());
 		 }
-	 }
-	 if (event.getAction() == MotionEvent.ACTION_MOVE) {
+	 
+	 case(MotionEvent.ACTION_MOVE):
 		 if (paddle.isTouched()) {
 			 paddle.setX((int)event.getX());
 			 paddle.setY((int)event.getY());
 		 }
-	 }
-	 if (event.getAction() == MotionEvent.ACTION_UP) {
+	 
+	 case( MotionEvent.ACTION_UP):
 		 if (paddle.isTouched()) {
 			 paddle.setTouched(false);
 		 }
@@ -111,22 +105,20 @@ public MainGamePanel(Context context) {
  
  protected void render(Canvas canvas) {
 	 canvas.drawColor(Color.BLACK);
+	 paddle.draw(canvas);
 //	 for(int x = 0; x < randNum; x++){
 //	   droidArray[x].draw(canvas);
 //	 }
-	   paddle.draw(canvas);
-	   droid.draw(canvas);
-	   droid2.draw(canvas);
+	 droid.draw(canvas);
  }
  @Override
  protected void onDraw(Canvas canvas) {
 	 canvas.drawColor(Color.BLACK);
+	 paddle.draw(canvas);
 //	 for(int x = 0; x < randNum; x++){
 //	   droidArray[x].draw(canvas);
 //	 }
-	 	droid.draw(canvas);
-	   paddle.draw(canvas);
-	   droid2.draw(canvas);
+	 droid.draw(canvas);
  }
  
  public void update() {
@@ -141,19 +133,22 @@ public MainGamePanel(Context context) {
 //
 //	         droid.getSpeed().toggleXDirection();
 //	     }
-//	     // check collision with bottom wall if heading down
-//	     if (droid.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
-//	             && droid.getY() + droid.getBitmap().getHeight() / 2 >= getHeight()) {
-//	         droid.getSpeed().toggleYDirection();
-//	     }
-//	     // check collision with top wall if heading up
-//	     if (droid.getSpeed().getyDirection() == Speed.DIRECTION_UP
-//	             && droid.getY() - droid.getBitmap().getHeight() / 2 <= 0) {
-//	         droid.getSpeed().toggleYDirection();
-//	     }
+	     // check collision with bottom wall if heading down
+	     if (droid.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
+	             && droid.getY() + droid.getBitmap().getHeight() / 2 >= getHeight()) {
+	         droid.getSpeed().toggleYDirection();
+	     }
+	     // check collision with paddle
+	     if (droid.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
+	             &&  (paddle.getY() - droid.getY() <= 153 && paddle.getX()
+	             - droid.getX() <= 100))
+	     {
+	    	 Log.d(TAG, "Paddle and asteroid are touching");
+	     }
 
 	     // Update the lone droid
 	     droid.update();
+	    
 	 }
 
 

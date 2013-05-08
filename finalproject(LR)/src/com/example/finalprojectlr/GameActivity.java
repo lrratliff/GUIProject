@@ -44,8 +44,7 @@ public class GameActivity extends Activity{
 
 	@Override
     public void onBackPressed() {
-		Intent intent = new Intent(GameActivity.this, MainActivity.class);
-		startActivity(intent);
+		GameActivity.this.finish();
     }
 
 }

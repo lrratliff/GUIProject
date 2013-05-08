@@ -27,51 +27,31 @@ public class MainThread extends Thread {
 
  }
 
- @Override
  public void run() {
-	 long beginTime;
-	 long timeDiff;
-	 int sleepTime = 0;
-	 int framesSkipped;
-	 Canvas canvas;
-	 Log.d(TAG, "Starting game loop");
-	 
-	 
-  while (running) {
-	 canvas = null;
-	 try{
-		 canvas = this.surfaceHolder.lockCanvas();
-		 synchronized(surfaceHolder){
-			 beginTime = System.currentTimeMillis();
-			 framesSkipped = 0;
-			 // update game state
-			 this.gamePanel.update();
-			   // render state to the screen
-			 this.gamePanel.render(canvas);
-			 timeDiff = System.currentTimeMillis();
-			 sleepTime = (int)(FRAME_PERIOD - timeDiff);
-			 
-			 if(sleepTime > 0){
-				 try{
-					 Thread.sleep(15);
-				 }
-				 catch(InterruptedException e ){}
-			 }
-		 }
-		 while(sleepTime < 0 && framesSkipped < MAX_FRAME_SKIPS)
-		 {
-			 this.gamePanel.update();
-			 sleepTime += FRAME_PERIOD;
-			 framesSkipped++;
-		 }
+	     Canvas canvas;
+	     Log.d(TAG, "Starting game loop");
+	     while (running) {
+	         canvas = null;
+	         // try locking the canvas for exclusive pixel editing
+	         // in the surface
+	         try {
+	             canvas = this.surfaceHolder.lockCanvas();
+	             synchronized (surfaceHolder) {
+	                 // update game state
+	                 this.gamePanel.update();
+	                 // render state to the screen
+	                 // draws the canvas on the panel
+	                 this.gamePanel.render(canvas);
+	             }
+	         } finally {
+	             // in case of an exception the surface is not left in
+	             // an inconsistent state
+	             if (canvas != null) {
+	                 surfaceHolder.unlockCanvasAndPost(canvas);
+	            }
+	         }   // end finally
+	     }
 	 }
-  	  finally{
-  		  if(canvas != null){
-  			  surfaceHolder.unlockCanvasAndPost(canvas);
-  		  }
-  	  }
-  }
 
- }
 }
 

@@ -9,14 +9,12 @@ public class Paddle {
 	private int x;
 	private int y;
 	private boolean touched;
-	Speed speed;
 	
 	public Paddle(Bitmap bitmap, int x , int y){
 	
 	this.bitmap = bitmap;
 	this.x = x;
 	this.y = y;
-	speed = new Speed();
 	}
 	
 	public Bitmap getBitmap(){

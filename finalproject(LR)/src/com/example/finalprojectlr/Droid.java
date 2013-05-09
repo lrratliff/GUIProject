@@ -8,7 +8,7 @@ public class Droid {
 	private Bitmap bitmap;
 	private int x;
 	private int y;
-	private boolean touched;
+	private boolean valid;
 	Speed speed;
 	
 	public Droid(Bitmap bitmap, int x , int y){
@@ -17,12 +17,15 @@ public class Droid {
 	this.x = x;
 	this.y = y;
 	speed = new Speed();
+	valid = true;
 	}
 	public Droid(Droid d){
 		this.bitmap = d.bitmap;
 		this.x = d.x;
 		this.y = d.y;
 		speed = new Speed();
+		valid = true;
+		
 	}
 	
 	public Bitmap getBitmap(){
@@ -46,6 +49,14 @@ public class Droid {
 	}
 	public void destroy(){
 		this.bitmap.recycle();
+	}
+	public boolean getValid()
+	{
+		return valid;
+	}
+	public void setValid(boolean b)
+	{
+		valid = b;
 	}
 	public void draw(Canvas canvas){
 		canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);

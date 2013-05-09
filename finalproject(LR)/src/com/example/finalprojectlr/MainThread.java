@@ -10,9 +10,6 @@ public class MainThread extends Thread {
 	private SurfaceHolder surfaceHolder;
 	private MainGamePanel gamePanel;
 	private boolean running;
-	private static final int MAX_FPS = 50;
-	private static final int MAX_FRAME_SKIPS = 5;
-	private static final int FRAME_PERIOD = 1000/ MAX_FPS;
 	
 	public  MainThread(SurfaceHolder surfaceHolder,MainGamePanel
 			gamePanel){

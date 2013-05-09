@@ -22,8 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.finalprojectlr.GameActivity" 
-            android:label="game_activity">
+        <activity
+            android:name="com.example.finalprojectlr.GameActivity"
+            android:label="game_activity" >
         </activity>
-	</application>
+        <activity
+            android:name="com.example.finalprojectlr.ExitActivity"
+            android:label="@string/title_activity_exit" >
+        </activity>
+    </application>
+
 </manifest>

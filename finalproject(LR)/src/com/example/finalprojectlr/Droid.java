@@ -2,6 +2,7 @@ package com.example.finalprojectlr;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 
 public class Droid {
 
@@ -11,12 +12,13 @@ public class Droid {
 	private boolean valid;
 	Speed speed;
 	
-	public Droid(Bitmap bitmap, int x , int y){
+	public Droid(Bitmap bitmap, int x , int y, float f){
 	
 	this.bitmap = bitmap;
 	this.x = x;
 	this.y = y;
 	speed = new Speed();
+	speed.setYv(f);
 	valid = true;
 	}
 	public Droid(Droid d){
@@ -30,6 +32,9 @@ public class Droid {
 	
 	public Bitmap getBitmap(){
 		return bitmap;
+	}
+	public void setSpeed(float f){
+		speed.setYv(f) ;
 	}
 	
 	public void setBitmap(Bitmap bitmap){
@@ -48,6 +53,7 @@ public class Droid {
 		this.y = y;
 	}
 	public void destroy(){
+		this.setValid(false);
 		this.bitmap.recycle();
 	}
 	public boolean getValid()

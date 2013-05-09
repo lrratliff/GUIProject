@@ -31,6 +31,7 @@ public class MainActivity extends Activity {
 	    public void onClick(View v) {
 	    	Intent intent = new Intent(MainActivity.this, GameActivity.class);
 	    	 startActivity(intent);
+	    	 finish();
 	    }
 	};
 	View.OnClickListener exitMethod = new View.OnClickListener(){
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
 			intent.addCategory(Intent.CATEGORY_HOME);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
+			finish();
 		}
 		};
 	
@@ -46,6 +48,7 @@ public class MainActivity extends Activity {
 	protected void onDestroy(){
 		Log.d(TAG, "Destroying Stuff");
 		super.onDestroy();
+		finish();
 	}
 	
 	@Override

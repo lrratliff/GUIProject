@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ExitActivity" >
+
+   <ImageView 
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/wallpaper2"
+        android:scaleType="fitXY"
+        android:contentDescription="wallpaper"/>
+
+    <TextView
+        android:id="@+id/exitText"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Thanks For Playing!!"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp"
+        android:text="Exit" />
+
+    <TextView
+        android:id="@+id/setText"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_above="@+id/exitButton"
+        android:layout_centerHorizontal="true"
+        android:text="Thanks For Playing!!"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp" />
+
+</RelativeLayout>

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,31 +18,34 @@ import android.view.SurfaceView;
 
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 	
+	public User user;
 	private Context context;
 	private SurfaceHolder surfaceHolder;
 	private MainThread thread;
-	private Droid droid;
-	private Droid droid2;
 	private Paddle paddle;
 	private static final String TAG = MainThread.class.getSimpleName();
+	public final static String EXTRA_MESSAGE = "com.example.finalprojectlr.MESSAGE";
 	static Random generator = new Random();
-	private int randXGen = generator.nextInt(800) + 1;
-	private int randYGen = generator.nextInt(600) + 1;
-	private static final int maxObjects = 8;
+	private int randXGen = generator.nextInt(700) + 1;
+	private int randYGen = generator.nextInt(700) + 1;
+	private static final int maxObjects = 5;
 	private Droid[] droidArray;
+	private float maxSpeed = 1;
+	private int score = 0;
 	
 public MainGamePanel(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
 		droidArray = new Droid [maxObjects];
+		user = new User();
 		paddle = new Paddle(BitmapFactory.decodeResource(getResources(), R.drawable.paddle), 400, 1000);
 		
 		for(int x = 0; x < maxObjects; x++){
 		
-		randXGen = generator.nextInt(800) + 1;
-		randYGen = generator.nextInt(600) + 1;
-		droidArray [x] = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen);
+		randXGen = generator.nextInt(700) + 1;
+		randYGen = generator.nextInt(700) + 1;
+		droidArray [x] = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen, maxSpeed);
 		}
 		
 		thread = new MainThread(getHolder(), this);
@@ -119,9 +123,13 @@ public MainGamePanel(Context context) {
  
  protected void render(Canvas canvas) {
 	 canvas.drawColor(Color.BLACK);
+	 user.draw(canvas);
 	 paddle.draw(canvas);
 	 for(int x = 0; x < maxObjects; x++){
+		 if(droidArray[x].getValid() == true)
 	   droidArray[x].draw(canvas);
+		 else
+			 continue;
 	 }
 	
  }
@@ -129,8 +137,12 @@ public MainGamePanel(Context context) {
  protected void onDraw(Canvas canvas) {
 	 canvas.drawColor(Color.BLACK);
 	 paddle.draw(canvas);
+	 user.draw(canvas);
 	 for(int x = 0; x < maxObjects; x++){
-	   droidArray[x].draw(canvas);
+		 if(droidArray[x].getValid() == true)
+			   droidArray[x].draw(canvas);
+				 else
+					 continue;
 	 }
 	 //droid.draw(canvas);
 	 
@@ -151,21 +163,35 @@ public MainGamePanel(Context context) {
 	     // check collision with bottom wall if heading down
 	 for(int x = 0; x < maxObjects; x++){
 		 if(droidArray[x].getValid()== false){
-			 //break;
+			 randXGen = generator.nextInt(700) + 1;
+			 randYGen = generator.nextInt(700) + 1;
+			 maxSpeed += 1;
+			 droidArray [x] = new Droid(BitmapFactory.decodeResource(getResources(), R.drawable.asteroid_1), randXGen, randYGen,
+					 maxSpeed);
+			 
+			 continue;
 		 }
 		 else if(droidArray[x].getValid() == true){
 			 
 		 if ( droidArray[x].getY() + droidArray[x].getBitmap().getHeight() / 2 >= getHeight()) {
-			 synchronized (surfaceHolder) {
-	                //quit to mainmenu
-	                ((Activity) context).finish();
-	            }    
+			 Context context = getContext(); // from MySurfaceView/Activity
+			 Intent intent = new Intent(context, ExitActivity.class);
+			 StringBuilder sb = new StringBuilder();
+			 sb.append("");
+			 sb.append(score);
+			 String message = sb.toString();
+		     intent.putExtra(EXTRA_MESSAGE, message);
+			 context.startActivity(intent); 
+			 
+	                
 	     }
 	     // check collision with paddle
-	     if ( paddle.getY() - droidArray[x].getY() <= 153 && droidArray[x].getX()
-	             - droidArray[x].getX() <= 100)
+	     if ( (paddle.getY() - droidArray[x].getY() >= -153 && paddle.getY() - droidArray[x].getY() <= 153) && 
+	    		 (paddle.getX()- droidArray[x].getX() >= -150 && paddle.getX()- droidArray[x].getX() <= 150))
 	     {
-	    	 Log.d(TAG, "Paddle and asteroid are touching");
+	    	 droidArray[x].destroy();
+	    	 user.setScore(user.getScore() + 1);
+	    	 score = user.getScore();
 	     }
 
 	     // Update the droid

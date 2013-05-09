@@ -14,7 +14,7 @@ public class Speed {
 	
 	public Speed(){
 		this.xv = 0;
-		this.yv =5;
+		this.yv =1;
 	}
 	
 	public Speed( float xv, float yv){

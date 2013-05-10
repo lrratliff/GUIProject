@@ -19,9 +19,12 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		//button declarations
 		Button start = (Button) findViewById(R.id.startButton);
+		Button info = (Button) findViewById(R.id.infoButton);
 		Button end = (Button) findViewById(R.id.exitButton);
 		
+		info.setOnClickListener(infoMethod);
 		start.setOnClickListener(buttonMethod);
 		end.setOnClickListener(exitMethod);
 		
@@ -31,7 +34,7 @@ public class MainActivity extends Activity {
 	    public void onClick(View v) {
 	    	Intent intent = new Intent(MainActivity.this, GameActivity.class);
 	    	 startActivity(intent);
-	    	 finish();
+	    	
 	    }
 	};
 	View.OnClickListener exitMethod = new View.OnClickListener(){
@@ -43,12 +46,19 @@ public class MainActivity extends Activity {
 			finish();
 		}
 		};
+		View.OnClickListener infoMethod = new View.OnClickListener(){
+			public void onClick(View v){
+				Intent intent = new Intent(MainActivity.this, InfoPage.class);
+				startActivity(intent);
+				
+			}
+			};
 	
 	@Override
 	protected void onDestroy(){
 		Log.d(TAG, "Destroying Stuff");
 		super.onDestroy();
-		finish();
+		
 	}
 	
 	@Override

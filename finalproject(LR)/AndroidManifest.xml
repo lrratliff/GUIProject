@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.finalprojectlr.MainActivity"
+            android:clearTaskOnLaunch="true"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +29,15 @@
         </activity>
         <activity
             android:name="com.example.finalprojectlr.ExitActivity"
-            android:label="@string/title_activity_exit" >
+            android:label="@string/title_activity_exit" 
+            android:excludeFromRecents="true"
+            >
+            
+        </activity>
+        <activity
+            android:name="com.example.finalprojectlr.InfoPage"
+            android:label="@string/title_activity_exit" 
+            android:clearTaskOnLaunch="true">
         </activity>
     </application>
 

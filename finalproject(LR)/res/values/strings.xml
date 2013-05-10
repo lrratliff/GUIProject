@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">finalproject(LR)</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Leslie Ratliff</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_exit">ExitActivity</string>
 

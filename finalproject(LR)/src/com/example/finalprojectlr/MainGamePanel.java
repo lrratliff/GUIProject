@@ -19,19 +19,19 @@ import android.view.SurfaceView;
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 	
 	public User user;
-	private Context context;
-	private SurfaceHolder surfaceHolder;
 	private MainThread thread;
 	private Paddle paddle;
+	public static boolean valid = true;
 	private static final String TAG = MainThread.class.getSimpleName();
 	public final static String EXTRA_MESSAGE = "com.example.finalprojectlr.MESSAGE";
 	static Random generator = new Random();
-	private int randXGen = generator.nextInt(700) + 1;
-	private int randYGen = generator.nextInt(700) + 1;
+	private int randXGen;
+	private int randYGen;
 	private static final int maxObjects = 5;
 	private Droid[] droidArray;
 	private float maxSpeed = 1;
 	private int score = 0;
+	private boolean decision = true;
 	
 public MainGamePanel(Context context) {
 		super(context);
@@ -148,7 +148,9 @@ public MainGamePanel(Context context) {
 	 
  }
  
- public void update() {
+ public boolean update() {
+	 
+	 
 //	     // check collision with right wall if heading right
 //	     if (droid.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
 //	             && droid.getX() + droid.getBitmap().getWidth() / 2 >= getWidth()) {
@@ -181,7 +183,10 @@ public MainGamePanel(Context context) {
 			 sb.append(score);
 			 String message = sb.toString();
 		     intent.putExtra(EXTRA_MESSAGE, message);
-			 context.startActivity(intent); 
+			 context.startActivity(intent);
+			 decision = false;
+			 break;
+
 			 
 	                
 	     }
@@ -197,10 +202,11 @@ public MainGamePanel(Context context) {
 	     // Update the droid
 	     //droid.update();
 	    droidArray[x].update();
+	    decision = true;
 		 }
 	 }
 
-
+	 return decision;
  }
 
 }

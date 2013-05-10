@@ -22,7 +22,7 @@ public class GameActivity extends Activity{
 		WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(new MainGamePanel(this));
 		Log.d(TAG, "View aded");
-		finish();
+		
 	}
 
 	@Override

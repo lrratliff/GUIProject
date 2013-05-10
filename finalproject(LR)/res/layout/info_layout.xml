@@ -11,20 +11,23 @@
         android:scaleType="fitXY"
         />
     <TextView 
-        android:layout_width="100dp"
+        android:layout_width="300dp"
         android:layout_height="100dp"
         android:id="@+id/instructions"
         android:layout_centerInParent="true"
-        android:text = "Catch the asteroids before they hit earth.
-        Just touch the basket in order to move it."
+         android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:text = "Catch the asteroids before they hit earth (or the bottom).
+        --Just drag the laser basket in order to move it."
         />
-    <Button 
+
+    <Button
+        android:id="@+id/play"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@+id/instructions"
-        android:id="@+id/back"
-        android:text="Back"/>
-    
-    
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="Play" />
 
 </RelativeLayout>
